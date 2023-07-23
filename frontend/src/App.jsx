@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { createWallet } from '../createWallet'
+import Home from './pages/Home';
+import { createWallet } from '../createWallet';
 
 function App() {
   const [address, setAddress] = useState("");
@@ -17,6 +18,7 @@ function App() {
       <button onClick={handleClick}>Create Wallet</button>
       {address && <p>Address: {address}</p>}
       {privateKey && <p>Private Key: {privateKey}</p>}
+      <Home />
     </>
   )
 }
