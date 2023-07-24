@@ -18,6 +18,7 @@ const contract = ContractAbi__factory.connect(CONTRACT_ID, wallet);
 function Home() {
   const [counter, setCounter] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [assets, setAssets] = useState([]);
 
   useEffect(() => {
     async function main() {
@@ -25,6 +26,10 @@ function Home() {
       // the `.get()` is read-only, because of this it don't expand coins.
       const { value } = await contract.functions.count().get();
       setCounter(Number(value));
+
+      const data = await wallet.getBalances();
+      console.log(data)
+      setAssets(data)
     }
     main();
   }, []);
@@ -45,6 +50,12 @@ function Home() {
   return (
     <div className="App">
       <header className="App-header">
+        {assets.map(a => (
+          <div>
+            <p>Asset Id: {a.assetId}</p>
+            <p>Balance: {a.amount.toString()}</p>
+          </div>
+        ))}
         <p>Counter: {counter}</p>
         <button disabled={loading} onClick={increment}>
           {loading ? "Incrementing..." : "Increment"}
