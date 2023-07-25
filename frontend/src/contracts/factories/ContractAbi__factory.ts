@@ -48,6 +48,24 @@ const _abi = {
     },
     {
       "inputs": [],
+      "name": "decrement",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
       "name": "increment",
       "output": {
         "name": "",

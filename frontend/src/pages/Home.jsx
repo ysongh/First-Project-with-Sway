@@ -46,6 +46,19 @@ function Home() {
       setLoading(false);
     }
   }
+
+  async function decrement() {
+    setLoading(true);
+    // Creates a transactions to call the increment function
+    // because it creates a TX and updates the contract state this requires the wallet to have enough coins to cover the costs and also to sign the Transaction
+    try {
+      await contract.functions.decrement().txParams({ gasPrice: 1 }).call();
+      const { value } = await contract.functions.count().get();
+      setCounter(Number(value));
+    } finally {
+      setLoading(false);
+    }
+  }
   
   return (
     <div className="App">
@@ -59,6 +72,11 @@ function Home() {
         <p>Counter: {counter}</p>
         <button disabled={loading} onClick={increment}>
           {loading ? "Incrementing..." : "Increment"}
+        </button>
+        <br />
+        <br />
+        <button disabled={loading} onClick={decrement}>
+          {loading ? "Decrementing..." : "Decrement"}
         </button>
       </header>
     </div>

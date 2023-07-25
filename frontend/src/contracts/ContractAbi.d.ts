@@ -23,13 +23,16 @@ import type {
 interface ContractAbiInterface extends Interface {
   functions: {
     count: FunctionFragment;
+    decrement: FunctionFragment;
     increment: FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'count', values: []): Uint8Array;
+  encodeFunctionData(functionFragment: 'decrement', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'increment', values: []): Uint8Array;
 
   decodeFunctionData(functionFragment: 'count', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'decrement', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'increment', data: BytesLike): DecodedValue;
 }
 
@@ -37,6 +40,7 @@ export class ContractAbi extends Contract {
   interface: ContractAbiInterface;
   functions: {
     count: InvokeFunction<[], BN>;
+    decrement: InvokeFunction<[], void>;
     increment: InvokeFunction<[], void>;
   };
 }
