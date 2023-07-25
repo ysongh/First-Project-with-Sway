@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Heading, Input, Button } from '@chakra-ui/react'
 import { Wallet } from "fuels";
 
 import { ContractAbi__factory } from "../contracts";
@@ -61,7 +62,7 @@ function Home() {
   }
   
   return (
-    <div className="App">
+    <Container maxW='1000px'>
       <header className="App-header">
         {assets.map(a => (
           <div>
@@ -70,16 +71,16 @@ function Home() {
           </div>
         ))}
         <p>Counter: {counter}</p>
-        <button disabled={loading} onClick={increment}>
+        <Button isLoading={loading} onClick={increment}>
           {loading ? "Incrementing..." : "Increment"}
-        </button>
+        </Button>
         <br />
         <br />
-        <button disabled={loading} onClick={decrement}>
+        <Button isLoading={loading} onClick={decrement}>
           {loading ? "Decrementing..." : "Decrement"}
-        </button>
+        </Button>
       </header>
-    </div>
+    </Container>
   );
 }
 export default Home;
