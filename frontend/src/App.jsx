@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
+import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import { createWallet } from '../createWallet';
 
@@ -17,6 +18,7 @@ function App() {
   return (
     <ChakraProvider>
       <HashRouter>
+        <Navbar />
         <Routes>
           <Route
             path="/wallet"
