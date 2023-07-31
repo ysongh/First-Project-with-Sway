@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Button } from '@chakra-ui/react';
 
 import { createWallet } from '../../createWallet';
 
@@ -13,12 +14,14 @@ function Wallet() {
   }
 
   return (
-    <>
-      <h1>First Project with Sway</h1>
-      <button onClick={handleClick}>Create Wallet</button>
+    <Container maxW='1000px'>
+      <h1>Create Wallet</h1>
+      <Button onClick={handleClick} mt={3}>
+        Create Wallet
+      </Button>
       {address && <p>Address: {address}</p>}
       {privateKey && <p>Private Key: {privateKey}</p>}
-    </>
+    </Container>
   )
 }
 
