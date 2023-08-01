@@ -18,6 +18,8 @@ const contract = ContractAbi__factory.connect(CONTRACT_ID, wallet);
 
 function Home() {
   const [counter, setCounter] = useState(0);
+  const [num, setNum] = useState(0);
+  const [result, setResult] = useState();
   const [loading, setLoading] = useState(false);
   const [assets, setAssets] = useState([]);
 
@@ -50,12 +52,32 @@ function Home() {
 
   async function decrement() {
     setLoading(true);
-    // Creates a transactions to call the increment function
+    // Creates a transactions to call the decrement function
     // because it creates a TX and updates the contract state this requires the wallet to have enough coins to cover the costs and also to sign the Transaction
     try {
       await contract.functions.decrement().txParams({ gasPrice: 1 }).call();
       const { value } = await contract.functions.count().get();
       setCounter(Number(value));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function insert() {
+    setLoading(true);
+    try {
+      await contract.functions.insert_into_storage_map().txParams({ gasPrice: 1 }).call();
+      const { value } = await contract.functions.count().get();
+      setCounter(Number(value));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function check() {
+    try {
+      const { value } = await contract.functions.get_from_storage_map(num).get();
+      setResult(Number(value))
     } finally {
       setLoading(false);
     }
@@ -79,6 +101,18 @@ function Home() {
         <Button isLoading={loading} onClick={decrement}>
           {loading ? "Decrementing..." : "Decrement"}
         </Button>
+        <br />
+        <br />
+        <Button isLoading={loading} onClick={insert}>
+          {loading ? "Insert..." : "Insert"}
+        </Button>
+        <br />
+        <br />
+        <input value={num} onChange={(e) => setNum(e.target.value)} />
+        <Button onClick={check}>
+          Check
+        </Button>
+        <p>{result}</p>
       </header>
     </Container>
   );

@@ -65,8 +65,49 @@ const _abi = {
       ]
     },
     {
+      "inputs": [
+        {
+          "name": "index",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "get_from_storage_map",
+      "output": {
+        "name": "",
+        "type": 1,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
       "inputs": [],
       "name": "increment",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "insert_into_storage_map",
       "output": {
         "name": "",
         "type": 0,
