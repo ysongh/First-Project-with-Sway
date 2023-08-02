@@ -19,6 +19,7 @@ const contract = ContractAbi__factory.connect(CONTRACT_ID, wallet);
 function Home() {
   const [counter, setCounter] = useState(0);
   const [num, setNum] = useState(0);
+  const [length, setLength] = useState(0);
   const [result, setResult] = useState();
   const [loading, setLoading] = useState(false);
   const [assets, setAssets] = useState([]);
@@ -35,6 +36,14 @@ function Home() {
       setAssets(data)
     }
     main();
+  }, []);
+
+  useEffect(() => {
+    async function getLength() {
+      const { value } = await contract.functions.count_length().get();
+      setLength(Number(value));
+    }
+    getLength();
   }, []);
 
   async function increment() {
@@ -93,6 +102,7 @@ function Home() {
           </div>
         ))}
         <p>Counter: {counter}</p>
+        <p>Length: {length}</p>
         <Button isLoading={loading} onClick={increment}>
           {loading ? "Incrementing..." : "Increment"}
         </Button>

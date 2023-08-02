@@ -48,6 +48,23 @@ const _abi = {
     },
     {
       "inputs": [],
+      "name": "count_length",
+      "output": {
+        "name": "",
+        "type": 1,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
       "name": "decrement",
       "output": {
         "name": "",
