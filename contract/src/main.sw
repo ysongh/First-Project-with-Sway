@@ -21,6 +21,9 @@ abi Counter {
     fn count() -> u64;
 
     #[storage(read)]
+    fn count_length() -> u64;
+
+    #[storage(read)]
     fn get_from_storage_map(index: u64) -> u64;
 
     #[storage(read, write)]
@@ -32,6 +35,11 @@ impl Counter for Contract {
     #[storage(read)]
     fn count() -> u64 {
         storage.counter
+    }
+
+    #[storage(read)]
+    fn count_length() -> u64 {
+        storage.countLen
     }
 
     #[storage(read, write)]
