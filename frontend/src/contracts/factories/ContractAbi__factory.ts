@@ -23,6 +23,23 @@ const _abi = {
     },
     {
       "typeId": 1,
+      "type": "struct Point",
+      "components": [
+        {
+          "name": "id",
+          "type": 2,
+          "typeArguments": null
+        },
+        {
+          "name": "val",
+          "type": 2,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 2,
       "type": "u64",
       "components": null,
       "typeParameters": null
@@ -34,7 +51,7 @@ const _abi = {
       "name": "count",
       "output": {
         "name": "",
-        "type": 1,
+        "type": 2,
         "typeArguments": null
       },
       "attributes": [
@@ -51,7 +68,7 @@ const _abi = {
       "name": "count_length",
       "output": {
         "name": "",
-        "type": 1,
+        "type": 2,
         "typeArguments": null
       },
       "attributes": [
@@ -85,7 +102,7 @@ const _abi = {
       "inputs": [
         {
           "name": "index",
-          "type": 1,
+          "type": 2,
           "typeArguments": null
         }
       ],

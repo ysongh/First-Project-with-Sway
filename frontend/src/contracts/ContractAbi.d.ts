@@ -20,6 +20,9 @@ import type {
   InvokeFunction,
 } from 'fuels';
 
+export type PointInput = { id: BigNumberish, val: BigNumberish };
+export type PointOutput = { id: BN, val: BN };
+
 interface ContractAbiInterface extends Interface {
   functions: {
     count: FunctionFragment;
@@ -51,7 +54,7 @@ export class ContractAbi extends Contract {
     count: InvokeFunction<[], BN>;
     count_length: InvokeFunction<[], BN>;
     decrement: InvokeFunction<[], void>;
-    get_from_storage_map: InvokeFunction<[index: BigNumberish], BN>;
+    get_from_storage_map: InvokeFunction<[index: BigNumberish], PointOutput>;
     increment: InvokeFunction<[], void>;
     insert_into_storage_map: InvokeFunction<[], void>;
   };

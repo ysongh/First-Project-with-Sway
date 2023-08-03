@@ -20,7 +20,7 @@ function Home() {
   const [counter, setCounter] = useState(0);
   const [num, setNum] = useState(0);
   const [length, setLength] = useState(0);
-  const [result, setResult] = useState();
+  const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
   const [assets, setAssets] = useState([]);
 
@@ -41,6 +41,7 @@ function Home() {
   useEffect(() => {
     async function getLength() {
       const { value } = await contract.functions.count_length().get();
+      console.log(value);
       setLength(Number(value));
     }
     getLength();
@@ -58,6 +59,8 @@ function Home() {
       setLoading(false);
     }
   }
+
+  console.log(result, "d")
 
   async function decrement() {
     setLoading(true);
@@ -86,7 +89,8 @@ function Home() {
   async function check() {
     try {
       const { value } = await contract.functions.get_from_storage_map(num).get();
-      setResult(Number(value))
+      console.log(value);
+      setResult({ id: Number(value.id), val: Number(value.val) })
     } finally {
       setLoading(false);
     }
@@ -125,7 +129,8 @@ function Home() {
           </Button>
         </Flex>
         
-        <p>{result}</p>
+        {result.val && <p>ID: {result.id}</p>}
+        {result.val && <p>Val: {result.val}</p>}
       </header>
     </Container>
   );

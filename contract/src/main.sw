@@ -4,10 +4,15 @@ use std::{
     storage::StorageMap,
 };
 
+struct Point {
+    id: u64,
+    val: u64,
+}
+
 storage {
     counter: u64 = 0,
     countLen: u64 = 0,
-    points: StorageMap<u64, u64> = StorageMap {},
+    points: StorageMap<u64, Point> = StorageMap {},
 }
 
 abi Counter {
@@ -24,7 +29,7 @@ abi Counter {
     fn count_length() -> u64;
 
     #[storage(read)]
-    fn get_from_storage_map(index: u64) -> u64;
+    fn get_from_storage_map(index: u64) -> Point;
 
     #[storage(read, write)]
     fn insert_into_storage_map();
@@ -53,14 +58,15 @@ impl Counter for Contract {
     }
 
     #[storage(read)]
-    fn get_from_storage_map(index: u64) -> u64 {
-        let count = storage.points.get(index).unwrap();
-        return count;
+    fn get_from_storage_map(index: u64) -> Point {
+        let data = storage.points.get(index).unwrap();
+        return data;
     }
 
     #[storage(read, write)]
     fn insert_into_storage_map() {
-        storage.points.insert(storage.countLen, storage.counter);
+        let new_point = Point{id: storage.countLen, val: storage.counter};
+        storage.points.insert(storage.countLen, new_point);
         storage.countLen = storage.countLen + 1;
     }
 }
