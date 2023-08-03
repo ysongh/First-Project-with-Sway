@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Heading, Input, Button } from '@chakra-ui/react'
+import { Container, Flex, Input, Button } from '@chakra-ui/react'
 import { Wallet } from "fuels";
 
 import { ContractAbi__factory } from "../contracts";
@@ -118,10 +118,13 @@ function Home() {
         </Button>
         <br />
         <br />
-        <input value={num} onChange={(e) => setNum(e.target.value)} />
-        <Button onClick={check}>
-          Check
-        </Button>
+        <Flex>
+          <Input value={num} onChange={(e) => setNum(e.target.value)} />
+          <Button onClick={check}>
+            Check
+          </Button>
+        </Flex>
+        
         <p>{result}</p>
       </header>
     </Container>
