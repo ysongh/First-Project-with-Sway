@@ -2,6 +2,7 @@ contract;
 
 use std::{
     storage::StorageMap,
+    auth::msg_sender,
 };
 
 struct Point {
@@ -13,6 +14,7 @@ storage {
     counter: u64 = 0,
     countLen: u64 = 0,
     points: StorageMap<u64, Point> = StorageMap {},
+    pointsMade: StorageMap<Identity, u64> = StorageMap {},
 }
 
 abi Counter {
@@ -34,6 +36,8 @@ abi Counter {
     #[storage(read, write)]
     fn insert_into_storage_map();
     
+    #[storage(read)]
+    fn get_points_by_address() -> u64;
 }
 
 impl Counter for Contract {
@@ -67,6 +71,12 @@ impl Counter for Contract {
     fn insert_into_storage_map() {
         let new_point = Point{id: storage.countLen, val: storage.counter};
         storage.points.insert(storage.countLen, new_point);
+        storage.pointsMade.insert(msg_sender().unwrap(), storage.counter);
         storage.countLen = storage.countLen + 1;
+    }
+
+    #[storage(read)]
+    fn get_points_by_address() -> u64 {
+        storage.pointsMade.get(msg_sender().unwrap()).unwrap()
     }
 }
