@@ -3,6 +3,7 @@ contract;
 use std::{
     storage::StorageMap,
     auth::msg_sender,
+    token::transfer,
 };
 
 struct Point {
@@ -38,6 +39,10 @@ abi Counter {
     
     #[storage(read)]
     fn get_points_by_address() -> u64;
+
+    #[payable]
+    #[storage(read, write)]
+    fn send_fund(asset: ContractId, beneficiary: Identity, amount: u64);
 }
 
 impl Counter for Contract {
@@ -78,5 +83,11 @@ impl Counter for Contract {
     #[storage(read)]
     fn get_points_by_address() -> u64 {
         storage.pointsMade.get(msg_sender().unwrap()).unwrap()
+    }
+
+    #[payable]
+    #[storage(read, write)]
+    fn send_fund(asset: ContractId, beneficiary: Identity, amount: u64) {
+       transfer(amount, asset, beneficiary);
     }
 }
