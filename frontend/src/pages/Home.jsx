@@ -19,6 +19,8 @@ const contract = ContractAbi__factory.connect(CONTRACT_ID, wallet);
 function Home() {
   const [counter, setCounter] = useState(0);
   const [num, setNum] = useState(0);
+  const [to, setTo] = useState();
+  const [amount, setAmount] = useState(0);
   const [length, setLength] = useState(0);
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
@@ -60,8 +62,6 @@ function Home() {
     }
   }
 
-  console.log(result, "d")
-
   async function decrement() {
     setLoading(true);
     // Creates a transactions to call the decrement function
@@ -95,6 +95,17 @@ function Home() {
       setLoading(false);
     }
   }
+
+  async function sendFund() {
+    setLoading(true);
+    try {
+      await contract.functions.send_fund("0x0000000000000000000000000000000000000000000000000000000000000000", to, amount).txParams({ gasPrice: 1 }).call();
+      const { value } = await contract.functions.count().get();
+      setCounter(Number(value));
+    } finally {
+      setLoading(false);
+    }
+  }
   
   return (
     <Container maxW='1000px'>
@@ -122,6 +133,7 @@ function Home() {
         </Button>
         <br />
         <br />
+        <h2>Check Balance</h2>
         <Flex>
           <Input value={num} onChange={(e) => setNum(e.target.value)} />
           <Button onClick={check}>
@@ -131,6 +143,17 @@ function Home() {
         
         {result.val && <p>ID: {result.id}</p>}
         {result.val && <p>Val: {result.val}</p>}
+
+        <br />
+        <br />
+        <h2>Transfer Fund</h2>
+        <Flex>
+          <Input value={amount} onChange={(e) => setAmount(e.target.value)} />
+          <Input value={to} onChange={(e) => setTo(e.target.value)} />
+          <Button onClick={sendFund}>
+            Send Fund
+          </Button>
+        </Flex>
       </header>
     </Container>
   );

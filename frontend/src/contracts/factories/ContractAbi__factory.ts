@@ -23,23 +23,70 @@ const _abi = {
     },
     {
       "typeId": 1,
-      "type": "struct Point",
+      "type": "b256",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 2,
+      "type": "enum Identity",
       "components": [
         {
-          "name": "id",
-          "type": 2,
+          "name": "Address",
+          "type": 3,
           "typeArguments": null
         },
         {
-          "name": "val",
-          "type": 2,
+          "name": "ContractId",
+          "type": 4,
           "typeArguments": null
         }
       ],
       "typeParameters": null
     },
     {
-      "typeId": 2,
+      "typeId": 3,
+      "type": "struct Address",
+      "components": [
+        {
+          "name": "value",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 4,
+      "type": "struct ContractId",
+      "components": [
+        {
+          "name": "value",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 5,
+      "type": "struct Point",
+      "components": [
+        {
+          "name": "id",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "val",
+          "type": 6,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 6,
       "type": "u64",
       "components": null,
       "typeParameters": null
@@ -51,7 +98,7 @@ const _abi = {
       "name": "count",
       "output": {
         "name": "",
-        "type": 2,
+        "type": 6,
         "typeArguments": null
       },
       "attributes": [
@@ -68,7 +115,7 @@ const _abi = {
       "name": "count_length",
       "output": {
         "name": "",
-        "type": 2,
+        "type": 6,
         "typeArguments": null
       },
       "attributes": [
@@ -102,14 +149,31 @@ const _abi = {
       "inputs": [
         {
           "name": "index",
-          "type": 2,
+          "type": 6,
           "typeArguments": null
         }
       ],
       "name": "get_from_storage_map",
       "output": {
         "name": "",
-        "type": 1,
+        "type": 5,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "get_points_by_address",
+      "output": {
+        "name": "",
+        "type": 6,
         "typeArguments": null
       },
       "attributes": [
@@ -154,6 +218,44 @@ const _abi = {
             "read",
             "write"
           ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "asset",
+          "type": 4,
+          "typeArguments": null
+        },
+        {
+          "name": "beneficiary",
+          "type": 2,
+          "typeArguments": null
+        },
+        {
+          "name": "amount",
+          "type": 6,
+          "typeArguments": null
+        }
+      ],
+      "name": "send_fund",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        },
+        {
+          "name": "payable",
+          "arguments": []
         }
       ]
     }

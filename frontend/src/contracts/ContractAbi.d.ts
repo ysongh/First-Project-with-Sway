@@ -20,6 +20,15 @@ import type {
   InvokeFunction,
 } from 'fuels';
 
+import type { Enum } from "./common";
+
+export type IdentityInput = Enum<{ Address: AddressInput, ContractId: ContractIdInput }>;
+export type IdentityOutput = Enum<{ Address: AddressOutput, ContractId: ContractIdOutput }>;
+
+export type AddressInput = { value: string };
+export type AddressOutput = AddressInput;
+export type ContractIdInput = { value: string };
+export type ContractIdOutput = ContractIdInput;
 export type PointInput = { id: BigNumberish, val: BigNumberish };
 export type PointOutput = { id: BN, val: BN };
 
@@ -29,23 +38,29 @@ interface ContractAbiInterface extends Interface {
     count_length: FunctionFragment;
     decrement: FunctionFragment;
     get_from_storage_map: FunctionFragment;
+    get_points_by_address: FunctionFragment;
     increment: FunctionFragment;
     insert_into_storage_map: FunctionFragment;
+    send_fund: FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'count', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'count_length', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'decrement', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'get_from_storage_map', values: [BigNumberish]): Uint8Array;
+  encodeFunctionData(functionFragment: 'get_points_by_address', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'increment', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'insert_into_storage_map', values: []): Uint8Array;
+  encodeFunctionData(functionFragment: 'send_fund', values: [ContractIdInput, IdentityInput, BigNumberish]): Uint8Array;
 
   decodeFunctionData(functionFragment: 'count', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'count_length', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'decrement', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'get_from_storage_map', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'get_points_by_address', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'increment', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'insert_into_storage_map', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'send_fund', data: BytesLike): DecodedValue;
 }
 
 export class ContractAbi extends Contract {
@@ -55,7 +70,9 @@ export class ContractAbi extends Contract {
     count_length: InvokeFunction<[], BN>;
     decrement: InvokeFunction<[], void>;
     get_from_storage_map: InvokeFunction<[index: BigNumberish], PointOutput>;
+    get_points_by_address: InvokeFunction<[], BN>;
     increment: InvokeFunction<[], void>;
     insert_into_storage_map: InvokeFunction<[], void>;
+    send_fund: InvokeFunction<[asset: ContractIdInput, beneficiary: IdentityInput, amount: BigNumberish], void>;
   };
 }
